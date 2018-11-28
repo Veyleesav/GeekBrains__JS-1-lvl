@@ -1,6 +1,6 @@
 let  fedorPoints = 16;
 let petrPoints = 22;
-console.log('У Фёдора '+ fedorPoints + ' очков, у Петра ' + petrPoints + ' очков.')
+console.log('У Фёдора '+ fedorPoints + ' очков, у Петра ' + petrPoints + ' очков.');
 if (petrPoints<=21 && fedorPoints<=21){
     if (petrPoints>fedorPoints){
         console.log('Победил Пётр!')
