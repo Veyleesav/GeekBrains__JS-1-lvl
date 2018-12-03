@@ -1,3 +1,8 @@
 body{
     font-size: 50px;
 }
+.added{
+    color: red;
+    background-color: #ddd;
+    padding: 10px;
+}
