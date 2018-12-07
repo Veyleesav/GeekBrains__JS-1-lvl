@@ -48,4 +48,3 @@ function getFilmsByCategory(cat) {
     }
     return newFilms;
 }
-console.log(getFilmsByCategory(0));
