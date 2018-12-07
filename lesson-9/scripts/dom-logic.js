@@ -1,4 +1,5 @@
 const openedFilms= {};
+
 document.addEventListener("DOMContentLoaded", function () {
     for (let category of categories){
         const newEl=document.createElement("div");
@@ -16,6 +17,14 @@ function getFilmComments(filmName){
     return film.comments;
 }
 
+function renderCommentForm(film) {
+    const content = `<div class="form-titile">Добавьте отзыв фильму ${film.name}</div><div class="form-body"><input class="form-author" placeholder="Ваше имя"><input class="form-comment" placeholder="Ваше имя"></div>`;
+    const form = document.createElement("div");
+    form.classList.add("comment-form");
+    form.innerHTML = content;
+    return form;
+}
+
 function openFilmCard(film,newEl) {
     const comments = getFilmComments(film.name);
     let s = "";
@@ -26,6 +35,11 @@ function openFilmCard(film,newEl) {
 
     const addCommentButton = document.createElement("button");
     addCommentButton.innerText = "Добавить отзыв";
+    addCommentButton.addEventListener("click",function (event) {
+        event.stopPropagation();
+        const commentForm = renderCommentForm(film);
+        newEl.appendChild(commentForm);
+    });
     newEl.appendChild(addCommentButton);
 }
 
@@ -39,6 +53,7 @@ function onFilmClick(film,newEl) {
     }
 
 }
+
 function renderFilm(film) {
     const newEl=document.createElement("div");
     newEl.classList.add("film");
@@ -52,6 +67,7 @@ function renderFilm(film) {
 
 
 }
+
 function onCategoryChoice(categoryName) {
     document.querySelector(".films").innerHTML = "";
     const films = getFilmsByCategory(categoryName);
@@ -59,3 +75,4 @@ function onCategoryChoice(categoryName) {
       renderFilm(film);
     }
 }
+
