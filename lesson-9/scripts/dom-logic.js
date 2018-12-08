@@ -12,15 +12,22 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
+
+function getFilmByName(filmName) {
+    return films.filter( f => f.name === filmName )[0];
+}
+
 function getFilmComments(filmName){
-    const film = films.filter( f => f.name === filmName )[0];
+    const film = getFilmByName(filmName);
     return film.comments;
 }
 
 function onAddCommentClick(name) {
     const authorValue = document.getElementById(`author-${name}`).value;
     const commentValue = document.getElementById(`comment-${name}`).value;
-    console.log(authorValue, commentValue);
+    const film = getFilmByName(name);
+    film.addComment(commentValue,authorValue);
+    onCategoryChoice(film.category);
 }
 
 function renderCommentForm(film) {
