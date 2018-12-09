@@ -2,7 +2,6 @@ body{
     background-color: #efefef;
 }
 section{
-    width: 500px;
     margin: 60px auto;
     background: none;
 }
@@ -83,4 +82,7 @@ input.form-comment{
 }
 .comment-form button{
     margin-top: 5px;
+}
+.film-info{
+    opacity: 0.7;
 }

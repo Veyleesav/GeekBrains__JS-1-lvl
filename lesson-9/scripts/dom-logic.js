@@ -25,13 +25,28 @@ function getFilmComments(filmName){
 function onAddCommentClick(name) {
     const authorValue = document.getElementById(`author-${name}`).value;
     const commentValue = document.getElementById(`comment-${name}`).value;
+    let starsValue = document.getElementById(`stars-${name}`).value;
+    if (starsValue>10){
+        starsValue=10;
+    }else if(starsValue<0){
+        starsValue=0
+    }
+
     const film = getFilmByName(name);
-    film.addComment(commentValue,authorValue);
-    onCategoryChoice(film.category);
+    if(authorValue!==""&&commentValue!==""&&starsValue!==""){
+        film.addComment(commentValue,authorValue,starsValue);
+        onCategoryChoice(film.category);
+    }
+    else{
+        alert("Заполнены не все поля для отзыва");
+    }
+
 }
 
 function renderCommentForm(film) {
-    const content = `<div class="form-titile">Добавьте отзыв фильму ${film.name}</div><div class="form-body"><input id="${"author-"+film.name}" class="form-author" placeholder="Ваше имя"><input id="${"comment-"+film.name}" class="form-comment" placeholder="Ваше имя"><button onclick="onAddCommentClick('${film.name}')">Отправить</button></div>`;
+    const content = `<div class="form-titile">Добавьте отзыв фильму ${film.name}</div><div class="form-body"><input id="${"author-"+film.name}" class="form-author" placeholder="Ваше имя"><input id="${"comment-"+film.name}" class="form-comment" placeholder="Ваше имя"><label for="rating"><br>Ваша оценка фильму: (0-10):</label>
+<input type="number" id="${"stars-"+film.name}" name="rating"
+       min="0" max="10" placeholder="Ваша оценка"><button onclick="onAddCommentClick('${film.name}')">Отправить</button></div>`;
     const form = document.createElement("div");
     form.classList.add("comment-form");
     form.innerHTML = content;
@@ -50,7 +65,7 @@ function openFilmCard(film,newEl) {
     comments.forEach(c => {
         s+=`<div class="comment"><span class="comment-author">${c.author}</span> : ${c.text}</div>`
     });
-    newEl.innerHTML +=`<div class="film-comments">${s}</div>`;
+    newEl.innerHTML +=`<div class="film-info"><p>Дополнительная информация о фильме:</p><p>Бюджет: ${film.budget} USD<br>Рейтинг экспертов: ${film.expertStars}/10<br>Рейтинг пользователей: ${film.getAverageStars()}/10</p></div><div class="film-comments">${s}</div>`;
 
     const addCommentButton = document.createElement("button");
     addCommentButton.innerText = "Добавить отзыв";
