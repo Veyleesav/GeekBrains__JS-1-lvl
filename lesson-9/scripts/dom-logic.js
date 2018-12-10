@@ -44,7 +44,7 @@ function onAddCommentClick(name) {
 }
 
 function renderCommentForm(film) {
-    const content = `<div class="form-titile">Добавьте отзыв фильму ${film.name}</div><div class="form-body"><input id="${"author-"+film.name}" class="form-author" placeholder="Ваше имя"><input id="${"comment-"+film.name}" class="form-comment" placeholder="Ваше имя"><label for="rating"><br>Ваша оценка фильму: (0-10):</label>
+    const content = `<div class="form-titile">Добавьте отзыв фильму «${film.name}»</div><div class="form-body"><input id="${"author-"+film.name}" class="form-author" placeholder="Ваше имя"><input id="${"comment-"+film.name}" class="form-comment" placeholder="Ваше имя"><label for="rating"><br>Ваша оценка фильму: (0-10):</label>
 <input type="number" id="${"stars-"+film.name}" name="rating"
        min="0" max="10" placeholder="Ваша оценка"><button onclick="onAddCommentClick('${film.name}')">Отправить</button></div>`;
     const form = document.createElement("div");
@@ -58,14 +58,18 @@ function renderCommentForm(film) {
 
     return form;
 }
-
+function colorizePoster() {  //рандомизирую цвет подложки постера
+    const backgrounds =["background:red", "background:pink", "background:brown", "background:aqua", "background:royalbue", "background:beige" ];
+    let background = backgrounds[Math.floor(Math.random()*backgrounds.length)];
+    return background;
+}
 function openFilmCard(film,newEl) {
     const comments = getFilmComments(film.name);
     let s = "";
     comments.forEach(c => {
         s+=`<div class="comment"><span class="comment-author">${c.author}</span> : ${c.text}</div>`
     });
-    newEl.innerHTML +=`<div class="film-info"><p>Дополнительная информация о фильме:</p><p>Бюджет: ${film.budget} USD<br>Рейтинг экспертов: ${film.expertStars}/10<br>Рейтинг пользователей: ${film.getAverageStars()}/10</p></div><div class="film-comments">${s}</div>`;
+    newEl.innerHTML +=`<div class="wrapper"><div class="poster" style=${colorizePoster()}>Место для постера</div><div class="film-info"><p>Дополнительная информация о фильме:</p><p>Бюджет: ${film.budget} USD<br>Рейтинг экспертов: ${film.expertStars}/10<br>Рейтинг пользователей: ${film.getAverageStars()}/10</p></div></div><div class="film-comments">${s}</div>`;
 
     const addCommentButton = document.createElement("button");
     addCommentButton.innerText = "Добавить отзыв";
